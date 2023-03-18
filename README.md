@@ -2,3 +2,4 @@
 
 ### Contributors:
 - Gurtej Grewal
+- Manuel Owen Lucas
