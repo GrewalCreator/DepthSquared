@@ -1,1 +1,4 @@
 # HackTheMIST
+
+### Contributors:
+- Gurtej Grewal
