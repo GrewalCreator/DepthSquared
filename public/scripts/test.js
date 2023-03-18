@@ -1,14 +1,14 @@
 import * as THREE from 'https://unpkg.com/three@0.144.0/build/three.module.js';
-
-
-
+import { OrbitControls } from "https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js";
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
+const controls = new OrbitControls(camera, renderer.domElement)
+controls.enableDamping = true
 
 
 scene.add(new THREE.AxesHelper(5))
@@ -57,8 +57,11 @@ function onWindowResize() {
 function animate() {
     requestAnimationFrame(animate)
 
+    controls.update()
+
     render()
 
+    // stats.update()
 }
 
 function render() {
