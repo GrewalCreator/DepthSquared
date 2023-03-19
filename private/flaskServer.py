@@ -65,6 +65,7 @@ def sendDefaultDisplacement():
 def sendDefaultNormal():
     return send_file('../public/views/earthMapNormal.png')
 
+
 @app.route('/image', methods=['GET'])
 # we are given a url, download the image from the url and serve a webpage containing the canvas element
 def process_input():
