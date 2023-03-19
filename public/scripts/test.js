@@ -17,16 +17,14 @@ controls.enableDamping = true
 scene.add(new THREE.AxesHelper(5))
 
 const light = new THREE.PointLight(0xffffff, 2)
-const light2 = new THREE.PointLight(0xffffff, 2)
 
 
 light.position.set(0, 10, 10)
-light2.position.set(0, 10, -10)
 scene.add(light)
-scene.add(light2)
 
 const planeGeometry = new THREE.PlaneGeometry(3.6, 1.8)
 const material = new THREE.MeshPhongMaterial()
+
 
 // GET MAP-TYPE
 var mapURL = 'earthMapNormal.png'
@@ -59,6 +57,8 @@ if(mapURL.toLowerCase().includes("normal")){
     gui.add(material.normalScale, 'x', 0, 10, 0.01)
     gui.add(material.normalScale, 'y', 0, 10, 0.01)
     gui.add(light.position, 'x', -20, 20).name('Light Pos X')
+    gui.add(light.position, 'y', -20, 20).name('Light Pos Y')
+    gui.add(light.position, 'z', -20, 20).name('Light Pos Z')
 
 // ================================================================================
 
@@ -72,6 +72,7 @@ if(mapURL.toLowerCase().includes("normal")){
     scene.add(plane)
 
 
+
     const options = {
         side: {
             FrontSide: THREE.FrontSide,
@@ -81,7 +82,9 @@ if(mapURL.toLowerCase().includes("normal")){
     }
 
 
-    const gui = new dat.GUI()
+
+
+    const gui = new GUI()
 
     const materialFolder = gui.addFolder('THREE.Material')
     materialFolder.add(material, 'transparent').onChange(() => material.needsUpdate = true)
@@ -95,7 +98,6 @@ if(mapURL.toLowerCase().includes("normal")){
     materialFolder
         .add(material, 'side', options.side)
         .onChange(() => updateMaterial())
-//materialFolder.open()
 
     const data = {
         color: material.color.getHex(),
@@ -142,8 +144,7 @@ if(mapURL.toLowerCase().includes("normal")){
     }
 
     const planePropertiesFolder = gui.addFolder('PlaneGeometry')
-//planePropertiesFolder.add(planeData, 'width', 1, 30).onChange(regeneratePlaneGeometry)
-//planePropertiesFolder.add(planeData, 'height', 1, 30).onChange(regeneratePlaneGeometry)
+
     planePropertiesFolder
         .add(planeData, 'widthSegments', 1, 360)
         .onChange(regeneratePlaneGeometry)
