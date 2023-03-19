@@ -39,10 +39,32 @@ def hello():
     path = '../public/views/'
     # A wee bit o'html
 
-    return send_file(path+'testHTML.html')
-@app.route('/scripts/test.js')
-def sendJs():
-    return send_file('../public/scripts/test.js')
+    return send_file(path+'DepthHTML.html')
+@app.route('/scripts/DepthSquare.js')
+def sendDepth():
+    return send_file('../public/scripts/DepthSquare.js')
+@app.route('/scripts/eventHandler.js')
+def sendEvent():
+    return send_file('../public/scripts/eventHandler.js')
+@app.route('/scripts/buttonHandler.js')
+def sendButton():
+    return send_file('../public/scripts/buttonHandler.js')
+@app.route('/styles.css')
+def sendStyles():
+    return send_file('../public/views/styles.css')
+@app.route('/scripts/build/dat.gui.module.js')
+def sendGUI():
+    return send_file('../public/scripts/build/dat.gui.module.js')
+@app.route('/views/earthMapColor.jpg')
+def sendDefaultColor():
+    return send_file('../public/views/earthMapColor.jpg')
+@app.route('/views/earthMapDisplacement.jpg')
+def sendDefaultDisplacement():
+    return send_file('../public/views/earthMapDisplacement.jpg')
+@app.route('/views/earthMapNormal.png')
+def sendDefaultNormal():
+    return send_file('../public/views/earthMapNormal.png')
+
 @app.route('/image', methods=['GET'])
 # we are given a url, download the image from the url and serve a webpage containing the canvas element
 def process_input():
