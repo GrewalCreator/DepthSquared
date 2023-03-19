@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response,send_file
 import os
 import glob
 from werkzeug.serving import make_server
@@ -9,6 +9,7 @@ import requests
 import io
 import wget
 import codecs
+
 
 default_port = 6060
 
@@ -35,37 +36,52 @@ app = Flask('myapp')
 
 @app.get("/")
 def hello():
+    path = '../public/views/'
     # A wee bit o'html
-    return ('<form action="/image" method="GET"><label for="image-url">Image URL:</label> <input type="text" id="image-url" name="url"><button type="submit">Submit</button></form>')
 
-
+    return send_file(path+'testHTML.html')
+@app.route('/scripts/test.js')
+def sendJs():
+    return send_file('../public/scripts/test.js')
 @app.route('/image', methods=['GET'])
 # we are given a url, download the image from the url and serve a webpage containing the canvas element
 def process_input():
     print("inside the function")
+    gettype = request.args.get("type")
     geturl = request.args.get("url")
     print(geturl)
-
+    # Check for existing image
+    clearFlag = True
     files = glob.glob('./input/*')
     for f in files:
-        print(f'removing {f}')
-        os.remove(f)
+        if geturl.lower().split("/")[-1] in f:
+            clearFlag = False
+    if clearFlag:
+        print("Generating new image!")
+        files = glob.glob('./input/*')
+        for f in files:
+            print(f'removing {f}')
+            os.remove(f)
 
-    files = glob.glob('./output/*')
-    for f in files:
-        print(f'removing {f}')
-        os.remove(f)
+        files = glob.glob('./output/*')
+        for f in files:
+            print(f'removing {f}')
+            os.remove(f)
 
-    img = wget.download(geturl, out='./input/')
-    os.system('python generate.py --cpu')
+        print("Downloading..")
+        img = wget.download(geturl, out='./input/')
+        os.system('python generate.py --cpu')
+
     path = './output/'
-    filename = os.listdir(path)[1]
-    print(filename)
-    file_data = codecs.open(path + filename, 'rb').read()
-    response = make_response()
-    response.headers['my-custom-header'] = 'my-custom-status-0'
-    response.data = file_data
-    return response
+    filename = None
+    for i in os.listdir(path):
+        print(gettype, i)
+        if gettype.lower() in i.lower():
+            print(filename)
+            filename = i
+    if filename == None:
+        return None
+    return send_file(path+filename, mimetype="image/gif")
     # return f'<h1>{filename}</h1>'
 
 
