@@ -1,0 +1,22 @@
+{
+  "name": "hackthemist",
+  "version": "1.0.0",
+  "description": "- Gurtej Grewal\r - Manuel Owen Lucas\r - Hamza Alsarakbi\r - Saad Sheikh",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GrewalCreator/HackTheMIST.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GrewalCreator/HackTheMIST/issues"
+  },
+  "homepage": "https://github.com/GrewalCreator/HackTheMIST#readme",
+  "dependencies": {
+    "three": "^0.150.1"
+  }
+}
