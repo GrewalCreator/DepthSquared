@@ -1,8 +1,24 @@
-let type = 'normal'
-function imageConversionURL(){
-    //http://localhost:6060/image?url=https://onlineimagetools.com/images/examples-onlineimagetools/color-grid.png&type=normal
 
-    enteredURL = document.getElementById("text-url").value
+
+let type = 'normal'
+let enteredURL = "earthMapColor.jpg"
+let url = 'earthMapNormal.png'
+function imageConversionURL(){
+    enteredURL = document.getElementById("text-url").value.trim()
+    if(enteredURL === '') return;
+
+    let segs = enteredURL.split(".");
+    let extension = segs[segs.length-1];
+    let req = new XMLHttpRequest();
+    req.open("Get", `/image?url=${enteredURL}&type=${type}`);
+    req.send();
+    req.onreadystatechange = () => {
+        if(req.readyState === 4) {
+            const blob = new Blob([this.response], { type: 'image/png'});
+            url = URL.createObjectURL(blob);
+            init();
+        }
+    }
 }
 
 function displacement_button(){
