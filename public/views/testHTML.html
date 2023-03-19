@@ -2,17 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
     <title>Depth&sup2</title>
-    <style>
-        body { margin: 0; }
-    </style>
+
 </head>
 <body>
-<form action="/image" method="GET">
-    <label for="image-url">Image URL:</label>
-    <input type="text" id="image-url" name="url">
-    <button type="submit">Submit</button>
-</form>
+
+    <label for="text-url">URL:</label>
+    <input type = "text" id = "text-url" placeholder="Enter FULL URL Here">
+    <input type = "button" id = "submit_button" value = "Submit" hidden = "hidden">
+    <input type = "button" id = "normal_button" value = "Normal">
+    <input type = "button" id = "displacement_button" value = "Displacement">
+
+
+
+
+    <script src = "../scripts/buttonHandler.js"></script>
+<script src = "../scripts/eventHandler.js"></script>
 <script src = "../scripts/test.js" type="module"></script>
 </body>
 </html>
