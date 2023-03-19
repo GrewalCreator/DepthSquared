@@ -5,8 +5,6 @@ from werkzeug.serving import make_server
 import threading
 import posixpath
 import urllib.parse
-from PIL import Image
-import IPython.display as display
 import requests
 import io
 import wget
@@ -38,14 +36,14 @@ app = Flask('myapp')
 @app.get("/")
 def hello():
     # A wee bit o'html
-    return '<h1 style="color:red;">Yellow From Flask!</h1>'
+    return ('<form action="/image" method="GET"><label for="image-url">Image URL:</label> <input type="text" id="image-url" name="url"><button type="submit">Submit</button></form>')
 
 
 @app.route('/image', methods=['GET'])
 # we are given a url, download the image from the url and serve a webpage containing the canvas element
 def process_input():
     print("inside the function")
-    geturl = request.args.get("urlstring")
+    geturl = request.args.get("url")
     print(geturl)
 
     files = glob.glob('./input/*')
@@ -58,8 +56,8 @@ def process_input():
         print(f'removing {f}')
         os.remove(f)
 
-    img = wget.download(geturl, out='./input')
-    os.system('python generate.py')
+    img = wget.download(geturl, out='./input/')
+    os.system('python generate.py --cpu')
     path = './output/'
     filename = os.listdir(path)[1]
     print(filename)
