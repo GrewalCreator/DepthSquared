@@ -2,23 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <title>Depth&sup2</title>
 
 </head>
 <body>
 
+<div id = 'urlSubmission'>
     <label for="text-url">URL:</label>
-    <input type = "text" id = "text-url" placeholder="Enter FULL URL Here">
+    <input type = "url" id = "text-url" placeholder="Enter FULL URL Here">
     <input type = "button" id = "submit_button" value = "Submit" hidden = "hidden">
     <input type = "button" id = "normal_button" value = "Normal">
     <input type = "button" id = "displacement_button" value = "Displacement">
 
+</div>
 
+    <script src = "../scripts/DepthSquare.js" type="module"></script>
 
+    <script src = "../scripts/buttonHandler.js"></script>
+    <script src = "../scripts/eventHandler.js"></script>
 
-<script id = 'initial_load' src = "/scripts/DepthSquare.js" type="module"></script>
-    <script src = "/scripts/buttonHandler.js"></script>
-<script src = "/scripts/eventHandler.js"></script>
 </body>
 </html>

@@ -1,14 +1,21 @@
 
 
-let type = 'normal'
+//let type = 'normal'
+import THREE from "three";
+
+// default
+let type = 'displacement'
 let enteredURL = "earthMapColor.jpg"
-let url = 'earthMapNormal.png'
-function imageConversionURL(){
+//let url = 'earthMapNormal.png'
+let url = 'earthMapDisplacement.png'
+async function imageConversionURL(){
+
     enteredURL = document.getElementById("text-url").value.trim()
+    const isImage = await isImageUrl(enteredURL);
+    if(!isImage) return;
     if(enteredURL === '') return;
 
-    let segs = enteredURL.split(".");
-    let extension = segs[segs.length-1];
+    console.log("Submitted")
     let req = new XMLHttpRequest();
     req.open("Get", `/image?url=${enteredURL}&type=${type}`);
     req.send();
@@ -16,7 +23,11 @@ function imageConversionURL(){
         if(req.readyState === 4) {
             const blob = new Blob([this.response], { type: 'image/png'});
             url = URL.createObjectURL(blob);
-            init();
+
+            updateMaterialTextures(enteredURL, url, type);
+
+
+
         }
     }
 }
@@ -36,4 +47,13 @@ function normal_button(){
 
 
     type = 'normal'
+}
+
+function isImageUrl(url) {
+    return new Promise(resolve => {
+        const img = new Image();
+        img.onload = () => resolve(img.width > 0 && img.height > 0);
+        img.onerror = () => resolve(false);
+        img.src = url;
+    });
 }
